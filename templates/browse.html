@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>{{ title }}</title>
+</head>
+<body>
+
+<h3 align="left">{{ title }}</h3>
+<hr>
+
+<div style="font-size:20px">
+
+{% block play %}
+{% for i in range(avi_files_number) %}
+    <p> {{ i+1 }}) <a target="_blank" href={{ avi_files[i][2] }}>{{ avi_files[i][0] }}</a> (size: {{ avi_files[i][1]}} )</p>
+{% endfor %}
+{% endblock %}
+
+</div>
+
+<hr>
+<div style="width: 33%;">
+<form action='/browse' method='post'>
+    <input type="submit" name="submit" style="width: 98%; height: 80px; float: center; font-size: 15px;" value="BACK">
+</form>
+</div>
+
+</body>
+</html>

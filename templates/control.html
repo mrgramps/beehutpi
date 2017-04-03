@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<title>{{ data.desc }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+<style>
+body {
+    margin: 0;
+}
+
+img {
+    width: 100%;
+    margin: 0;    
+}
+
+.outer-div {
+    width: 100%;
+}
+
+.inner1-div {
+    width: 100%;
+    text-align: center;
+}
+
+.inner2-div {
+    border: 1px solid #FFF;
+}
+
+
+</style>
+</head>
+
+
+<body>
+
+<div class="outer-div">
+<h1 align="center">{{ data.desc }}</h1>
+<hr>
+<div class="inner1-div">
+
+<div class="inner2-div" style="width: 45%; float: left;">
+<form action='/' method='POST'>
+    <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="DROPBOX"> <br><br>
+    <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="SHUTDOWN RPI"> <br><br>
+    <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="REBOOT RPI"> <br><br>
+</form>
+</div>
+
+<div class="inner2-div" style="width: 45%; float: right;">
+<form action='/' method='POST'>
+    <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="START CCTV"> <br><br>
+    <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="STOP CCTV"> <br><br>
+    <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="RESTART CCTV"> <br><br>
+</form>
+</div>
+
+<br>
+
+<div class="inner2-div" style="width: 100%; float: center;">
+<form action='/' method='POST'>
+    <input type="submit" name="submit" style="width: 95.5%; height: 80px; float: center; font-size: 15px;" value="BACK TO DASHBOARD">
+    <h3>WIFI MODE</h3>
+    {% for key,val in data.fields.iteritems() %}
+      <input type="radio" name="field" value="{{ key }}" {{ val }}> {{ key }}
+    {% endfor %}
+
+    <br><br>
+</form>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</body>
+</html>
