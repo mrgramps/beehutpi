@@ -14,6 +14,7 @@ BHP_PATH = "/home/pi/beehutpi/"
 LOGGEDIN = BHP_PATH + "loggedin.conf"
 BHP_CONF = BHP_PATH + "bhp.conf"
 WIFI_CONF = BHP_PATH + "wifimode.conf"
+DBOX_CONF = BHP_PATH + "dboxsync.conf"
 mybeehutpi={ 'AVIPATH' : '',
              'DBOXURL' : '',
              'MYHOMEIP' : '',
@@ -148,6 +149,13 @@ def read_wifi_mode():
         dprint("reading wifi mode setting=<{}>".format(setting), DEBUG)
     return setting
 
+def read_dbox_conf():
+    dbox = None
+    with open(DBOX_CONF, 'r') as f:
+        dbox = f.readlines()[0]
+        dprint("reading dbox sync configuration=<{}>".format(dbox), DEBUG)
+    return dbox
+
 def get_filesize(f):
     st = os.stat(f)
     return st.st_size
@@ -160,6 +168,12 @@ def browse():
     if request.method == 'POST':
         if request.form['submit'] == 'BACK':
             btn_config_back()
+            # enable/disable dropbox sync, read thru checkbox
+            val = request.form.getlist('check')
+            dbox_conf = 'disable' if val == [] else 'enable'
+            with open(DBOX_CONF, 'w') as f:
+                f.write(dbox_conf)
+                f.close()
             return redirect(url_for('control'))
 
     avi_dir = mybeehutpi['AVIPATH']
@@ -175,6 +189,7 @@ def browse():
     sorted_avi_files = sorted(avi_files)
     return render_template("browse.html",
         title = 'BeeHutPi RPI CCTV Controller - Dropbox Viewer',
+        dbox_setting = 'checked' if (read_dbox_conf() == 'enable') else '',
         avi_files_number = avi_files_number,
         avi_files = sorted_avi_files)
 
@@ -195,6 +210,9 @@ def init():
         f.close()
     with open(WIFI_CONF, 'w') as f:
         f.write('remote')
+        f.close()
+    with open(DBOX_CONF, 'w') as f:
+        f.write('enable')
         f.close()
     print("=== Welcome to BeeHutPi RPI CCTV Controller. Checkout beehutpi.com for more info. ===")
 

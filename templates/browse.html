@@ -8,6 +8,18 @@
 <body>
 
 <h3 align="left">{{ title }}</h3>
+<br>
+<div style="width: 25%;">
+<form action='/browse' method='post'>
+  <label>
+    <input type="checkbox" name="check" value="dbox_enable" {{ dbox_setting }} > Enable Dropbox Sync
+  </label>
+  <br>
+  <br>
+  <br>
+  <input type="submit" name="submit" style="width: 90%; height: 80px; float: center; font-size: 15px;" value="BACK">
+</form>
+</div>
 <hr>
 
 <div style="font-size:20px">
@@ -21,11 +33,7 @@
 </div>
 
 <hr>
-<div style="width: 33%;">
-<form action='/browse' method='post'>
-    <input type="submit" name="submit" style="width: 98%; height: 80px; float: center; font-size: 15px;" value="BACK">
-</form>
-</div>
+
 
 </body>
 </html>
